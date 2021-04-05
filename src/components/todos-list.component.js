@@ -2,16 +2,25 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Todo=props=>(
+const Todo = (props) => (
   <tr>
-    <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_description}</td>
-    <td className={props.todo.todo_responsible ? 'completed' : ''}>{props.todo.todo_responsible}</td>
-    <td className={props.todo.todo_priority ? 'completed' : ''}>{props.todo.todo_priority}</td>
+    <td className={props.todo.todo_reg_number ? "completed" : ""}>
+      {props.todo.todo_reg_number}
+    </td>
+    <td className={props.todo.todo_description ? "completed" : ""}>
+      {props.todo.todo_description}
+    </td>
+    <td className={props.todo.todo_responsible ? "completed" : ""}>
+      {props.todo.todo_responsible}
+    </td>
+    <td className={props.todo.todo_priority ? "completed" : ""}>
+      {props.todo.todo_priority}
+    </td>
     <td>
-      <Link to={"/edit/"+props.todo._id}>Edit</Link>
+      <Link to={"/edit/" + props.todo._id}>Edit</Link> | <Link to={'/delete/'+props.todo._id}>Delete</Link>
     </td>
   </tr>
-)
+);
 class TodosList extends Component {
   constructor(props) {
     super(props);
@@ -36,21 +45,20 @@ class TodosList extends Component {
     })
   }
   render() {
-    return(
+    return (
       <div>
         <h3>Todos List</h3>
-        <table>
+        <table className="table table-striped">
           <thead>
             <tr>
+              <th>Registration Number</th>
               <th>Description</th>
               <th>Responsible</th>
               <th>Priority</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            { this.todoList() }
-          </tbody>
+          <tbody>{this.todoList()}</tbody>
         </table>
       </div>
     );
